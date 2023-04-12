@@ -1,4 +1,6 @@
 {
+  "name": "test",
+  "version": "0.0.1",
   "private": true,
   "scripts": {
     "dev": "nodemon -w '../src/**/*.ts' -e .ts -x webpack build"

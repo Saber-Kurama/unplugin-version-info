@@ -2,7 +2,7 @@ import fs from "node:fs";
 
 let pkg: any;
 
-export const getPkg = async () => {
+export const getPkg = () => {
   if (pkg) {
     return pkg;
   }
@@ -11,7 +11,7 @@ export const getPkg = async () => {
   try {
     pkg = JSON.parse(pkgStr);
   } catch (error) {
-    pkg = {};
+    pkg = null;
   }
-  return pkg;
+  return pkg || {};
 };
