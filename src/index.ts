@@ -1,12 +1,14 @@
-import { createUnplugin } from 'unplugin'
-import type { Options } from './types'
+import { createUnplugin } from "unplugin";
+import type { Options } from "./types";
+import { getConsoleLogString } from "./utils/log";
 
-export default createUnplugin<Options | undefined>(options => ({
-  name: 'unplugin-starter',
+export default createUnplugin<Options | undefined>((options) => ({
+  name: "unplugin-version-info",
   transformInclude(id) {
-    return id.endsWith('main.ts')
+    return id.endsWith(options?.filename || "index.html");
   },
   transform(code) {
-    return code.replace('__UNPLUGIN__', `Hello Unplugin! ${options}`)
+    console.log("this", this);
+    return code.replace("</head>", `${getConsoleLogString()}</head>`);
   },
-}))
+}));
