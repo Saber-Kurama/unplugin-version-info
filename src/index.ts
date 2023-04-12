@@ -8,9 +8,13 @@ let isBuild = false;
 export default createUnplugin<Options | undefined>((options) => ({
   name: "unplugin-version-info",
   transformInclude(id) {
+    if (isWebpack) {
+      return false;
+    }
     return id.endsWith(options?.filename || "index.html");
   },
   transform(code) {
+    // todo 如何 让代码不走 html-loader
     if (isWebpack && !isBuild) {
       return code;
     }
@@ -26,5 +30,25 @@ export default createUnplugin<Options | undefined>((options) => ({
   webpack(compiler) {
     isWebpack = true;
     isBuild = process.argv.includes("build");
+    const HtmlWebpackPlugin: any = compiler.options.plugins
+      .map(({ constructor }) => constructor)
+      .find(
+        (constructor) => constructor && constructor.name === "HtmlWebpackPlugin"
+      );
+    compiler.hooks.compilation.tap(
+      "unplugin-version-info",
+      (compilation, compilationParams) => {
+        HtmlWebpackPlugin.getHooks(compilation).beforeEmit.tapAsync(
+          "unplugin-version-info",
+          (data: any, cb: any) => {
+            data.html = data.html.replace(
+              "</head>",
+              `\n${getConsoleLogString()}\n</head>`
+            );
+            cb(null, data);
+          }
+        );
+      }
+    );
   },
 }));
