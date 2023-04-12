@@ -72,6 +72,10 @@
   "files": [
     "dist"
   ],
+  "publishConfig": {
+    "registry": "",
+    "access": "public"
+  },
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch src",
