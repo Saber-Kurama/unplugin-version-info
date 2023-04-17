@@ -1,5 +1,7 @@
+import { Options } from "../types";
 import { getPkg } from "./pkg";
 import { getRepoInfoFn } from "./repo";
+import { getCodingInfo } from "./codingnet";
 
 const getDateStr = () => {
   const date_ob = new Date();
@@ -15,19 +17,32 @@ const getDateStr = () => {
   const year = date_ob.getFullYear();
 
   // current hours
-  const hours = date_ob.getHours();
+  const hours = ("0" + date_ob.getHours()).slice(-2);
 
   // current minutes
-  const minutes = date_ob.getMinutes();
+  const minutes = ("0" + date_ob.getMinutes()).slice(-2);
 
   // current seconds
-  let seconds = date_ob.getSeconds();
-  return `${year}-${month}-${date} ${hours}:${minutes}: ${seconds}`;
+  let seconds = ("0" + date_ob.getSeconds()).slice(-2);
+  return `${year}-${month}-${date} ${hours}:${minutes}:${seconds}`;
 };
 
-export const getConsoleLogString = () => {
+export const getConsoleLogString = (options: Options) => {
   const pkg: any = getPkg();
-  const repoInfo = getRepoInfoFn();
+  let repoInfo: {
+    branch: string;
+    abbreviatedSha: string;
+    commitMessage: string;
+  } = {
+    branch: "",
+    abbreviatedSha: "",
+    commitMessage: "",
+  };
+  if (options.isCoding) {
+    repoInfo = getRepoInfoFn();
+  } else {
+    repoInfo = getRepoInfoFn();
+  }
   const colorStr = "#e0005a";
   return (
     "<script>" +
