@@ -46,8 +46,19 @@ export const getAbbreviatedShaSync = () => {
 };
 
 export const getGitMessageSync = () => {
-  const { stdout } = commandSync("git log -1 --pretty=%s");
-  return stdout;
+  let result = "";
+  try {
+    result = childProcess
+      .execSync("git log -1 --pretty=%s", {
+        encoding: "utf-8",
+      })
+      .replace(/\s/, "");
+  } catch (error) {
+    result = "error";
+  }
+  return result;
+  // const { stdout } = commandSync("git log -1 --pretty=%s");
+  // return stdout;
 };
 
 export const getCodingInfo = () => {
@@ -57,3 +68,5 @@ export const getCodingInfo = () => {
     commitMessage: getGitMessageSync(),
   };
 };
+
+console.log(getCodingInfo());
