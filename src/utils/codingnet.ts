@@ -69,4 +69,4 @@ export const getCodingInfo = () => {
   };
 };
 
-console.log(getCodingInfo());
+// console.log(getCodingInfo());
