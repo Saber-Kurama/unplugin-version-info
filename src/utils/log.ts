@@ -58,7 +58,8 @@ export const getConsoleLogString = (options: Options) => {
       repoInfo.abbreviatedSha || ""
     }', 'color:  ${colorStr}');` +
     `console.log('%c提交message: ${
-      repoInfo.commitMessage.trim() || ""
+      repoInfo.commitMessage.trim().replace(/\r/gi, "").replace(/\n/gi, "") ||
+      ""
     }', 'color:  ${colorStr}');` +
     "console.groupEnd();" +
     "</script>"
@@ -72,4 +73,4 @@ export const getConsoleLogString = (options: Options) => {
 
 // 测试
 
-console.log(getConsoleLogString({ isCoding: true }));
+// console.log(getConsoleLogString({ isCoding: true }));
