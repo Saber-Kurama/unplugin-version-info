@@ -70,6 +70,6 @@ export const getConsoleLogString = (options: Options) => {
   // `;
 };
 
-// 测
+// 测试
 
 console.log(getConsoleLogString({ isCoding: true }));
