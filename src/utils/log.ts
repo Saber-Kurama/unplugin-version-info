@@ -59,7 +59,7 @@ export const getConsoleLogString = (options: Options) => {
       repoInfo.abbreviatedSha || ""
     }', 'color:  ${colorStr}');` +
     `console.log('%c提交message: ${
-      repoInfo.commitMessage || ""
+      repoInfo.commitMessage.trim() || ""
     }', 'color:  ${colorStr}');` +
     "</script>"
     // `\n`
@@ -69,3 +69,5 @@ export const getConsoleLogString = (options: Options) => {
   // <script>console.log('name111')</script>
   // `;
 };
+
+console.log(getConsoleLogString({ isCoding: true }));
