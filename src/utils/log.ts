@@ -49,7 +49,6 @@ export const getConsoleLogString = (options: Options) => {
     `console.group('%c${
       pkg.name || "数势"
     }项目信息', 'background-color: ${colorStr}; color: #ffffff ; font-weight: bold ; padding: 4px ;');` +
-    "console.groupEnd();" +
     `console.log('%c构建时间: ${getDateStr()}', 'color:  ${colorStr}');` +
     `console.log('%c构建版本: ${pkg.version || ""}', 'color:  ${colorStr}');` +
     `console.log('%c构建分支: ${
@@ -61,6 +60,7 @@ export const getConsoleLogString = (options: Options) => {
     `console.log('%c提交message: ${
       repoInfo.commitMessage.trim() || ""
     }', 'color:  ${colorStr}');` +
+    "console.groupEnd();" +
     "</script>"
     // `\n`
   );
