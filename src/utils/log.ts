@@ -39,7 +39,7 @@ export const getConsoleLogString = (options: Options) => {
     commitMessage: "",
   };
   if (options.isCoding) {
-    repoInfo = getRepoInfoFn();
+    repoInfo = getCodingInfo();
   } else {
     repoInfo = getRepoInfoFn();
   }
@@ -50,9 +50,8 @@ export const getConsoleLogString = (options: Options) => {
       pkg.name || "数势"
     }项目信息', 'background-color: ${colorStr}; color: #ffffff ; font-weight: bold ; padding: 4px ;');` +
     "console.groupEnd();" +
-    `console.log('%c构建时间: ${getDateStr()},版本: ${
-      pkg.version || ""
-    }', 'color:  ${colorStr}');` +
+    `console.log('%c构建时间: ${getDateStr()}', 'color:  ${colorStr}');` +
+    `console.log('%c构建版本: ${pkg.version || ""}', 'color:  ${colorStr}');` +
     `console.log('%c构建分支: ${
       repoInfo.branch || ""
     }', 'color:  ${colorStr}');` +

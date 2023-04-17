@@ -1,28 +1,14 @@
-# unplugin-starter
+# @dangojs/unplugin-version-info
 
 [![NPM version](https://img.shields.io/npm/v/unplugin-starter?color=a1b858&label=)](https://www.npmjs.com/package/unplugin-starter)
 
-Starter template for [unplugin](https://github.com/unjs/unplugin).
+打包构建增加构建信息的插件
 
-## Template Usage
 
-To use this template, clone it down using:
-
-```bash
-npx degit antfu/unplugin-starter my-unplugin
-```
-
-And do a global replace of `unplugin-starter` with your plugin name.
-
-Then you can start developing your unplugin 🔥
-
-To test your plugin, run: `pnpm run dev`
-To release a new version, run: `pnpm run release`
-
-## Install
+## 安装
 
 ```bash
-npm i unplugin-starter
+npm i @dangojs/unplugin-version-info
 ```
 
 <details>
@@ -30,16 +16,16 @@ npm i unplugin-starter
 
 ```ts
 // vite.config.ts
-import Starter from 'unplugin-starter/vite'
+import VersionInfo from '@dangojs/unplugin-version-info/vite';
 
 export default defineConfig({
   plugins: [
-    Starter({ /* options */ }),
+    VersionInfo(),
   ],
 })
 ```
 
-Example: [`playground/`](./playground/)
+
 
 <br></details>
 
@@ -47,14 +33,15 @@ Example: [`playground/`](./playground/)
 <summary>Rollup</summary><br>
 
 ```ts
+// 暂无测试
 // rollup.config.js
-import Starter from 'unplugin-starter/rollup'
+// import Starter from 'unplugin-starter/rollup'
 
-export default {
-  plugins: [
-    Starter({ /* options */ }),
-  ],
-}
+// export default {
+//   plugins: [
+//     Starter({ /* options */ }),
+//   ],
+// }
 ```
 
 <br></details>
@@ -68,38 +55,24 @@ export default {
 module.exports = {
   /* ... */
   plugins: [
-    require('unplugin-starter/webpack')({ /* options */ })
+    require('unplugin-starter/webpack')()
   ]
 }
 ```
 
 <br></details>
 
-<details>
-<summary>Nuxt</summary><br>
-
-```ts
-// nuxt.config.js
-export default {
-  buildModules: [
-    ['unplugin-starter/nuxt', { /* options */ }],
-  ],
-}
-```
-
-> This module works for both Nuxt 2 and [Nuxt Vite](https://github.com/nuxt/vite)
-
-<br></details>
 
 <details>
 <summary>Vue CLI</summary><br>
 
 ```ts
+const VersionInfo = require('@dangojs/unplugin-version-info').default;
 // vue.config.js
 module.exports = {
   configureWebpack: {
     plugins: [
-      require('unplugin-starter/webpack')({ /* options */ }),
+       VersionInfo.webpack(),
     ],
   },
 }
@@ -107,17 +80,11 @@ module.exports = {
 
 <br></details>
 
-<details>
-<summary>esbuild</summary><br>
 
-```ts
-// esbuild.config.js
-import { build } from 'esbuild'
-import Starter from 'unplugin-starter/esbuild'
+## Options的参数
+|参数|类型|说明|默认值|
+|---|---|----|----|
+|filename| `string` |html文件的名称 | `index.html`|
+|isCoding| `boolean`|是否是codingnet的构建流程 | `true`|
 
-build({
-  plugins: [Starter()],
-})
-```
 
-<br></details>
