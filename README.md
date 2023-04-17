@@ -1,6 +1,6 @@
 # @dangojs/unplugin-version-info
 
-[![NPM version](https://img.shields.io/npm/v/unplugin-starter?color=a1b858&label=)](https://www.npmjs.com/package/unplugin-starter)
+[![NPM version](https://img.shields.io/npm/v/@dangojs/unplugin-version-info?color=a1b858&label=)](https://www.npmjs.com/package/@dangojs/unplugin-version-info)
 
 打包构建增加构建信息的插件
 
