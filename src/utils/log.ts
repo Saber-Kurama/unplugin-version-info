@@ -38,6 +38,7 @@ export const getConsoleLogString = (options: Options) => {
     abbreviatedSha: "",
     commitMessage: "",
   };
+  // todo: 内置判断 是否是 isCoding 而非参数 .merge
   if (options.isCoding) {
     repoInfo = getCodingInfo();
   } else {

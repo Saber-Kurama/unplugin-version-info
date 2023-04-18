@@ -12,6 +12,8 @@ export default createUnplugin<Options | undefined>(
       if (isWebpack) {
         return false;
       }
+      // todo: 如何解决包含其他目录的 index.html 但是不是项目中的入口
+      // 1. 默认就这几个文件[]
       return id.endsWith(options?.filename || "index.html");
     },
     transform(code) {
@@ -31,6 +33,7 @@ export default createUnplugin<Options | undefined>(
     webpack(compiler) {
       isWebpack = true;
       isBuild = process.argv.includes("build");
+      // todo: 还没有配置
       const HtmlWebpackPlugin: any = compiler.options.plugins
         .map(({ constructor }) => constructor)
         .find(
