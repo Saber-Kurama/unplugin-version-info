@@ -36,9 +36,12 @@ export const getConsoleLogString = (options: Options) => {
     abbreviatedSha: string;
     commitMessage: string;
   } = {
-    branch: gitInfo.branch || codingInfo.branch || '',
-    abbreviatedSha: gitInfo.abbreviatedSha || codingInfo.abbreviatedSha || '',
-    commitMessage: gitInfo.commitMessage || codingInfo.commitMessage || '',
+    branch: codingInfo.branch || codingInfo.branch !== 'GIT_BRANCH' ? codingInfo.branch : gitInfo.branch || '',
+    abbreviatedSha:
+      codingInfo.abbreviatedSha || codingInfo.abbreviatedSha !== 'GIT_COMMIT_SHORT'
+        ? codingInfo.abbreviatedSha
+        : gitInfo.abbreviatedSha || '',
+    commitMessage: codingInfo.commitMessage || gitInfo.commitMessage || '',
   };
   // todo: 内置判断 是否是 isCoding 而非参数 .merge
   const colorStr = '#e0005a';
