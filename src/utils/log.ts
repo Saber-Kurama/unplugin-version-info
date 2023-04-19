@@ -1,70 +1,84 @@
-import { Options } from "../types";
-import { getPkg } from "./pkg";
-import { getRepoInfoFn } from "./repo";
-import { getCodingInfo } from "./codingnet";
+import { Options } from '../types';
+import { getPkg } from './pkg';
+import { getRepoInfoFn } from './repo';
+import { getCodingInfo } from './codingnet';
 
 const getDateStr = () => {
   const date_ob = new Date();
 
   // current date
   // adjust 0 before single digit date
-  const date = ("0" + date_ob.getDate()).slice(-2);
+  const date = ('0' + date_ob.getDate()).slice(-2);
 
   // current month
-  const month = ("0" + (date_ob.getMonth() + 1)).slice(-2);
+  const month = ('0' + (date_ob.getMonth() + 1)).slice(-2);
 
   // current year
   const year = date_ob.getFullYear();
 
   // current hours
-  const hours = ("0" + date_ob.getHours()).slice(-2);
+  const hours = ('0' + date_ob.getHours()).slice(-2);
 
   // current minutes
-  const minutes = ("0" + date_ob.getMinutes()).slice(-2);
+  const minutes = ('0' + date_ob.getMinutes()).slice(-2);
 
   // current seconds
-  let seconds = ("0" + date_ob.getSeconds()).slice(-2);
+  let seconds = ('0' + date_ob.getSeconds()).slice(-2);
   return `${year}-${month}-${date} ${hours}:${minutes}:${seconds}`;
 };
 
 export const getConsoleLogString = (options: Options) => {
   const pkg: any = getPkg();
-  let repoInfo: {
+  const codingInfo = getCodingInfo();
+  const gitInfo = getRepoInfoFn();
+  const repoInfo: {
     branch: string;
     abbreviatedSha: string;
     commitMessage: string;
   } = {
-    branch: "",
-    abbreviatedSha: "",
-    commitMessage: "",
+    branch: codingInfo.branch || codingInfo.branch !== 'GIT_BRANCH' ? codingInfo.branch : gitInfo.branch || '',
+    abbreviatedSha:
+      codingInfo.abbreviatedSha || codingInfo.abbreviatedSha !== 'GIT_COMMIT_SHORT'
+        ? codingInfo.abbreviatedSha
+        : gitInfo.abbreviatedSha || '',
+    commitMessage: codingInfo.commitMessage || gitInfo.commitMessage || '',
   };
   // todo: 内置判断 是否是 isCoding 而非参数 .merge
-  if (options.isCoding) {
-    repoInfo = getCodingInfo();
-  } else {
-    repoInfo = getRepoInfoFn();
-  }
-  const colorStr = "#e0005a";
+  const colorStr = '#e0005a';
   return (
-    "<script>" +
-    `console.group('%c${
-      pkg.name || "数势"
-    }项目信息', 'background-color: ${colorStr}; color: #ffffff ; font-weight: bold ; padding: 4px ;');` +
-    `console.log('%c构建时间: ${getDateStr()}', 'color:  ${colorStr}');` +
-    `console.log('%c构建版本: ${pkg.version || ""}', 'color:  ${colorStr}');` +
-    `console.log('%c构建分支: ${
-      repoInfo.branch || ""
-    }', 'color:  ${colorStr}');` +
-    `console.log('%c构建abbreviatedSha: ${
-      repoInfo.abbreviatedSha || ""
-    }', 'color:  ${colorStr}');` +
-    `console.log('%c提交message: ${
-      repoInfo.commitMessage.trim().replace(/\r/gi, "").replace(/\n/gi, "") ||
-      ""
-    }', 'color:  ${colorStr}');` +
-    "console.groupEnd();" +
-    "</script>"
+    // "<script>" +
+    // `console.group('%c${
+    //   pkg.name || "数势"
+    // }项目信息', 'background-color: ${colorStr}; color: #ffffff ; font-weight: bold ; padding: 4px ;');` +
+    // `console.log('%c构建时间: ${getDateStr()}', 'color:  ${colorStr}');` +
+    // `console.log('%c构建版本: ${pkg.version || ""}', 'color:  ${colorStr}');` +
+    // `console.log('%c构建分支: ${
+    //   repoInfo.branch || ""
+    // }', 'color:  ${colorStr}');` +
+    // `console.log('%c构建abbreviatedSha: ${
+    //   repoInfo.abbreviatedSha || ""
+    // }', 'color:  ${colorStr}');` +
+    // `console.log("%c提交message: ${
+    //   repoInfo.commitMessage.trim().replace(/\r/gi, '').replace(/\n/gi, '') ||
+    //   ''
+    // }", 'color:  ${colorStr}');` +
+    // "console.groupEnd();" +
+    // `console.log(${JSON.stringify(gitInfo)});` +
+    // "</script>"
     // `\n`
+    `<script>
+       console.group('%c${
+         pkg.name || '数势'
+       }项目信息', 'background-color: ${colorStr}; color: #ffffff ; font-weight: bold ; padding: 4px ;');
+       console.log('%c构建时间: ${getDateStr()}', 'color:  ${colorStr}');
+       console.log('%c构建版本: ${pkg.version || ''}', 'color:  ${colorStr}');
+       console.log('%c构建分支: ${repoInfo.branch || ''}', 'color:  ${colorStr}');
+       console.log('%c构建abbreviatedSha: ${repoInfo.abbreviatedSha || ''}', 'color:  ${colorStr}');
+       console.log("%c提交message: ${
+         repoInfo.commitMessage.trim().replace(/\r/gi, '').replace(/\n/gi, '') || ''
+       }", 'color:  ${colorStr}');
+       console.groupEnd();
+    </script>`
   );
   // 多行字符串 会报错
   // return `
