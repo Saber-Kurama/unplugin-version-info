@@ -1,2 +1,0 @@
-console.group('%cmetadatax-ui项目信息', 'background-color: #e0005a; color: #ffffff ; font-weight: bold ; padding: 4px ;');console.groupEnd();console.log('%c构建时间: 2023-04-17 20:40:25', 'color:  #e0005a');console.log('%c构建版本: 1.3.1', 'color:  #e0005a');console.log('%c构建分支: origin/feature/1.3.1-gc', 'color:  #e0005a');console.log('%c构建abbreviatedSha: d73a249', 'color:  #e0005a');console.log('%c提交message: ✨feat:  更新版本
-', 'color:  #e0005a');

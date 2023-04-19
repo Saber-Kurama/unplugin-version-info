@@ -85,6 +85,5 @@ module.exports = {
 |参数|类型|说明|默认值|
 |---|---|----|----|
 |filename| `string` |html文件的名称 | `index.html`|
-|isCoding| `boolean`|是否是codingnet的构建流程 | `true`|
 
 

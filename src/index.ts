@@ -46,11 +46,15 @@ export default createUnplugin<Options | undefined>(
           HtmlWebpackPlugin.getHooks(compilation).beforeEmit.tapAsync(
             "unplugin-version-info",
             (data: any, cb: any) => {
-              data.html = data.html.replace(
-                "</head>",
-                `\n${getConsoleLogString(options)}\n</head>`
-              );
-              cb(null, data);
+              if (isBuild) {
+                data.html = data.html.replace(
+                  "</head>",
+                  `\n${getConsoleLogString(options)}\n</head>`
+                );
+                cb(null, data);
+              } else {
+                cb(null, data);
+              }
             }
           );
         }
