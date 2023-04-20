@@ -29,20 +29,14 @@ const getDateStr = () => {
 
 export const getConsoleLogString = (options: Options) => {
   const pkg: any = getPkg();
-  const codingInfo = getCodingInfo();
-  const gitInfo = getRepoInfoFn();
-  const repoInfo: {
+  let repoInfo: {
     branch: string;
     abbreviatedSha: string;
     commitMessage: string;
-  } = {
-    branch: codingInfo.branch || codingInfo.branch !== 'GIT_BRANCH' ? codingInfo.branch : gitInfo.branch || '',
-    abbreviatedSha:
-      codingInfo.abbreviatedSha || codingInfo.abbreviatedSha !== 'GIT_COMMIT_SHORT'
-        ? codingInfo.abbreviatedSha
-        : gitInfo.abbreviatedSha || '',
-    commitMessage: codingInfo.commitMessage || gitInfo.commitMessage || '',
-  };
+  } = getCodingInfo();
+  if (!repoInfo.branch || repoInfo.branch === '$GIT_BRANCH') {
+    repoInfo = getRepoInfoFn();
+  }
   // todo: 内置判断 是否是 isCoding 而非参数 .merge
   const colorStr = '#e0005a';
   return (
