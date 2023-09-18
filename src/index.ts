@@ -4,6 +4,7 @@ import { getConsoleLogString } from "./utils/log";
 
 let isWebpack = false;
 let isBuild = false;
+let buildMode = "未知";
 
 export default createUnplugin<Options | undefined>(
   (options = { isCoding: true }) => ({
@@ -21,18 +22,27 @@ export default createUnplugin<Options | undefined>(
       if (isWebpack && !isBuild) {
         return code;
       }
-      return code.replace("</head>", `${getConsoleLogString(options)}</head>`);
+      return code.replace("</head>", `${getConsoleLogString(options, buildMode)}</head>`);
     },
     vite: {
-      apply(_, { command }) {
-        if (command === "serve") return false;
-        if (command === "build") return true;
+      apply(_, config) {
+        buildMode = config.mode;
+        if (config.command === "serve") return false;
+        if (config.command === "build") return true;
         return false;
       },
     },
     webpack(compiler) {
       isWebpack = true;
       isBuild = process.argv.includes("build");
+      // @ts-expect-error VUE_CLI_SERVICE vue-cli 
+      if (process?.VUE_CLI_SERVICE?.mode) {
+        // @ts-expect-error VUE_CLI_SERVICE vue-cli 
+        buildMode = process.VUE_CLI_SERVICE.mode;
+      } else { 
+        // todo: 从process.argv中获取 mode
+
+      }
       // todo: 还没有配置
       const HtmlWebpackPlugin: any = compiler.options.plugins
         .map(({ constructor }) => constructor)
@@ -49,7 +59,7 @@ export default createUnplugin<Options | undefined>(
               if (isBuild) {
                 data.html = data.html.replace(
                   "</head>",
-                  `\n${getConsoleLogString(options)}\n</head>`
+                  `\n${getConsoleLogString(options, buildMode)}\n</head>`
                 );
                 cb(null, data);
               } else {
