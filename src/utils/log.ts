@@ -69,7 +69,7 @@ export const getConsoleLogString = (options: Options) => {
        console.log('%c构建分支: ${repoInfo.branch || ''}', 'color:  ${colorStr}');
        console.log('%c构建abbreviatedSha: ${repoInfo.abbreviatedSha || ''}', 'color:  ${colorStr}');
        console.log("%c提交message: ${
-         repoInfo.commitMessage.trim().replace(/\r/gi, '').replace(/\n/gi, '') || ''
+         repoInfo.commitMessage.trim().replace(/\r/gi, '').replace(/\n/gi, '').replace(/\'|\"/g, '\\"') || ''
        }", 'color:  ${colorStr}');
        console.groupEnd();
     </script>`
