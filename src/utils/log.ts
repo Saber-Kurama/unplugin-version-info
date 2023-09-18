@@ -27,7 +27,7 @@ const getDateStr = () => {
   return `${year}-${month}-${date} ${hours}:${minutes}:${seconds}`;
 };
 
-export const getConsoleLogString = (options: Options, mode?: string ) => {
+export const getConsoleLogString = (options: Options, mode?: string) => {
   const pkg: any = getPkg();
   let repoInfo: {
     branch: string;
@@ -70,7 +70,7 @@ export const getConsoleLogString = (options: Options, mode?: string ) => {
        console.log('%c构建分支: ${repoInfo.branch || ''}', 'color:  ${colorStr}');
        console.log('%c构建abbreviatedSha: ${repoInfo.abbreviatedSha || ''}', 'color:  ${colorStr}');
        console.log("%c提交message: ${
-         repoInfo?.commitMessage?.trim?.().replace(/\r/gi, '').replace(/\n/gi, '') || ''
+         repoInfo?.commitMessage?.trim?.().replace(/\r/gi, '').replace(/\n/gi, '').replace(/\'|\"/g, '\\"') || ''
        }", 'color:  ${colorStr}');
        console.groupEnd();
     </script>`
