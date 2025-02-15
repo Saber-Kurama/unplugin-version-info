@@ -75,6 +75,7 @@ class NextBuildInfoPlugin {
     `;
 
     // 使用 Webpack 插件将构建信息注入到客户端代码中
+    // todo: 优化 知道添加到那个文件中
     new webpack.NormalModuleReplacementPlugin(/virtual-build-info/, (resource: any) => {
       resource.request = path.resolve(__dirname, "virtual-build-info.js");
       resource.resource = path.resolve(__dirname, "virtual-build-info.js");
