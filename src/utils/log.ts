@@ -81,6 +81,49 @@ export const getConsoleLogString = (options: Options, mode?: string) => {
   // `;
 };
 
+export const getConsoleLogAndConsole = (mode?: string) => {
+  const pkg: any = getPkg();
+  let repoInfo: {
+    branch: string;
+    abbreviatedSha: string;
+    commitMessage: string;
+  } = getCodingInfo();
+  if (!repoInfo.branch || repoInfo.branch === '$GIT_BRANCH') {
+    repoInfo = getRepoInfoFn();
+  }
+  const buildInfo = {
+    packageName: pkg.name || '数势',
+    version: pkg.version || '',
+    buildTime: getDateStr(),
+    mode: mode || '',
+    branchName: repoInfo.branch || '',
+    abbreviatedSha: repoInfo.abbreviatedSha || '',
+    commitMessage: repoInfo.commitMessage || '',
+  }
+  // todo: 内置判断 是否是 isCoding 而非参数 .merge
+  const colorStr = '#e0005a';
+  const consoleStr = (
+    `
+       console.group('%c${
+        buildInfo.packageName || '数势'
+       }项目信息', 'background-color: ${colorStr}; color: #ffffff ; font-weight: bold ; padding: 4px ;');
+       console.log('%c构建时间: ${buildInfo.buildTime}', 'color:  ${colorStr}');
+       console.log('%c构建Mode: ${buildInfo.mode || ''}', 'color:  ${colorStr}');
+       console.log('%c构建版本: ${buildInfo.version || ''}', 'color:  ${colorStr}');
+       console.log('%c构建分支: ${buildInfo.branchName || ''}', 'color:  ${colorStr}');
+       console.log('%c构建abbreviatedSha: ${buildInfo.abbreviatedSha || ''}', 'color:  ${colorStr}');
+       console.log("%c提交message: ${
+         buildInfo?.commitMessage?.trim?.().replace(/\r/gi, '').replace(/\n/gi, '').replace(/\'|\"/g, '\\"') || ''
+       }", 'color:  ${colorStr}');
+       console.groupEnd();
+   `
+  );
+  return {
+    buildInfo,
+    consoleStr
+  }
+};
+
 // 测试
 
 // console.log(getConsoleLogString({ isCoding: true }));
