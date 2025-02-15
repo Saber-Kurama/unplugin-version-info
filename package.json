@@ -1,7 +1,7 @@
 {
   "name": "@dangojs/unplugin-version-info",
   "type": "module",
-  "version": "0.1.15",
+  "version": "1.0.0",
   "packageManager": "pnpm@7.1.1",
   "description": "Register global imports on demand for Vite and Webpack",
   "license": "MIT",
@@ -87,25 +87,61 @@
     "start": "esno src/index.ts",
     "test": "vitest"
   },
+  
+  "peerDependencies": {
+    "@farmfe/core": ">=1",
+    "@nuxt/kit": "^3",
+    "@nuxt/schema": "^3",
+    "esbuild": "*",
+    "rollup": "^3",
+    "vite": ">=3",
+    "webpack": "^4 || ^5"
+  },
+  "peerDependenciesMeta": {
+    "@farmfe/core": {
+      "optional": true
+    },
+    "@nuxt/kit": {
+      "optional": true
+    },
+    "@nuxt/schema": {
+      "optional": true
+    },
+    "esbuild": {
+      "optional": true
+    },
+    "rollup": {
+      "optional": true
+    },
+    "vite": {
+      "optional": true
+    },
+    "webpack": {
+      "optional": true
+    }
+  },
   "dependencies": {
     "git-repo-info": "^2.1.1",
-    "unplugin": "^1.3.1"
+    "unplugin": "^2.1.2"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^0.33.1",
-    "@types/node": "^18.15.11",
-    "bumpp": "^8.2.1",
     "chalk": "^5.2.0",
-    "eslint": "^8.37.0",
     "esno": "^0.16.3",
     "fast-glob": "^3.2.12",
-    "nodemon": "^2.0.22",
     "rimraf": "^3.0.2",
-    "rollup": "^3.20.2",
-    "tsup": "^6.7.0",
-    "typescript": "^4.9.5",
-    "vite": "^4.2.1",
-    "vitest": "^0.25.8",
-    "webpack": "^5.77.0"
+    "@antfu/eslint-config": "^4.2.0",
+    "@nuxt/kit": "^3.15.4",
+    "@nuxt/schema": "^3.15.4",
+    "@types/node": "^22.13.1",
+    "bumpp": "^10.0.2",
+    "eslint": "^9.20.0",
+    "nodemon": "^3.1.9",
+    "rollup": "^4.34.6",
+    "tsup": "^8.3.6",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.3",
+    "vite": "^6.1.0",
+    "vitest": "^3.0.5",
+    "webpack": "^5.97.1"
   }
 }

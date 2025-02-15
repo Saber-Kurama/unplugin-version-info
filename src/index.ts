@@ -45,7 +45,7 @@ export default createUnplugin<Options | undefined>(
       }
       // todo: 还没有配置
       const HtmlWebpackPlugin: any = compiler.options.plugins
-        .map(({ constructor }) => constructor)
+        .map(({ constructor }: any) => constructor)
         .find(
           (constructor) =>
             constructor && constructor.name === "HtmlWebpackPlugin"
